@@ -17,13 +17,17 @@ import Haproxy from './Haproxy';
 // }
 
 export default class DragDrop extends Component {
-    state = {
+    constructor(props){
+        super(props);
+
+    this.state = {
         tasks: [
             {name:"Servidor1", category:"wip", bgcolor: "blue"},
             {name:"Servidor2", category:"wip", bgcolor:"blue"}            
           ]
-    } 
-    
+    };   
+}
+
     onDragStart = (ev, id) => {
         console.log('dragstart:',id);
         ev.dataTransfer.setData("id", id);
