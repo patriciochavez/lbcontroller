@@ -1,26 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Haproxy extends Component {
-
-    Proxy = () => {
-        return (
-            <div className="card-group">
-                <div className="card text-center">                    
+const Proxy = (props) => {
+    return (
+        <div className="card-group">
+            <div className="card text-center bg-primary col-3">
                 <div className="card-body">
-                    <h5 className="card-title">nombre: {this.props.name}</h5>
-                    <p className="card-text">balanceo: {this.props.balance}</p>
-                    <p className="card-text">granja: {this.props.farmname}</p>
-                    {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                    <h5 className="card-title">nombre: {(props.data.data) && props.data.data.data[0].name}</h5>
+                    <p className="card-text">balanceo: {(props.data.data) && props.data.data.data[0].farms[0].balance.algorithm}</p>
+                    <p className="card-text">granja: {(props.data.data) && props.data.data.data[0].farms[0].name}</p>                    
                 </div>
             </div>
-        </div >);
+            </div>);
     }
-
-    render() {
-        return (
-            <div>
-                <this.Proxy />
-            </div>
-        )
-    }
-}
+export default Proxy;

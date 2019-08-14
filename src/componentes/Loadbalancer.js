@@ -10,13 +10,8 @@ export default class Loadbalancer extends Component {
 
         this.state = {
             authorization: 'Basic YWRtaW46bXlwYXNzd29yZA==',
-            data: '',
-            name: '',
-            balance: '',
-            farmname: '',
-            servers: []
+            data: ''
         };
-
     }
 
     async componentDidMount() {
@@ -29,24 +24,7 @@ export default class Loadbalancer extends Component {
             this.setState({
                 data: data
             });
-
-            this.setState({
-                name: data.data.data[0].name
-            });
-
-            this.setState({
-                balance: data.data.data[0].farms[0].balance.algorithm
-            });
-
-            this.setState({
-                farmname: data.data.data[0].farms[0].name
-            });
-
-            this.setState({
-                servers: data.data.data[0].farms[0].servers
-            });
-
-            console.log(this.state.data.data.data[0].farms[0].balance.algorithm);
+            
         } catch (error) {
             console.error(error)
         }
@@ -55,9 +33,8 @@ export default class Loadbalancer extends Component {
     render() {
         return (
             <div>
-                <Haproxy name={this.state.name} balance={this.state.balance} farmname={this.state.farmname}/>           
-                <Servidores servers={this.state.servers}/>
-                {console.log('paso') }              
+                <Haproxy data={this.state.data}/>           
+                <Servidores data={this.state.data}/>
             </div>
             )
             }

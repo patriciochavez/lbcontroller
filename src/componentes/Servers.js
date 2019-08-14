@@ -1,45 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Servers extends Component {
-
-componentDidMount() {
-    console.log('componente montado', this.props.servers)
-}
-
-    Servidor = () => {
-        return (
-            <div className="card-group">
-                <div className="card text-center">                    
+const Servidor = (props) => {    
+    return (        
+            <div className="card text-center">
                 <div className="card-body">
-                    <h5 className="card-title">nombre: {this.props.name}</h5>
-                    <p className="card-text">balanceo: {this.props.balance}</p>
-                    <p className="card-text">granja: {this.props.farmname}</p>
+                    <h5 className="card-title">nombre: {props.servidor.name}</h5>
+                    <p className="card-text">ip: {props.servidor.address}</p>
+                    <p className="card-text">puerto: {props.servidor.port}</p>
+                    <p className="card-text">estado: {props.servidor.check}</p>
                     {<a href="#" className="btn btn-primary">Suspender</a>}
                 </div>
             </div>
-        </div >);
-    }
+    );
+}
 
-    Servidores = () => {
-       return (
-            <div className="card-group">
-                <div className="card text-center">                    
+const Servidores = (props) => {
+    return (
+        <div className="card-group">
+            <div className="card bg-success bg-primary col-3">
                 <div className="card-body">
-                    <h5 className="card-title">nombre: {JSON.stringify(this.props.servers)}</h5>
-                    <p className="card-text">ip: {}</p>
-                    <p className="card-text">port: {this.props.balance}</p>
-                    <p className="card-text">estado: {this.props.farmname}</p>
-                    {<a href="#" className="btn btn-danger">Suspender</a>}
+                    {
+                        (props.data.data) && props.data.data.data[0].farms[0].servers.map((servidor) => (
+                            <Servidor servidor={servidor}/>
+                        ))                    
+                    }
                 </div>
             </div>
         </div >);
-    }
-
-    render() {
-        return (
-            <div>
-                <this.Servidores/>
-            </div>
-        )
-    }
 }
+
+export default Servidores;
+
