@@ -1,16 +1,16 @@
 import React from 'react';
 
 const Servidor = (props) => {    
-    return (        
+    return (
             <div className="card text-center">
                 <div className="card-body">
                     <h5 className="card-title">nombre: {props.servidor.name}</h5>
                     <p className="card-text">ip: {props.servidor.address}</p>
                     <p className="card-text">puerto: {props.servidor.port}</p>
                     <p className="card-text">estado: {props.servidor.check}</p>
-                    {<a href="#" className="btn btn-primary">Suspender</a>}
+                    {<a href="#" className="btn btn-danger">Suspender</a>}
                 </div>
-            </div>
+            </div>        
     );
 }
 

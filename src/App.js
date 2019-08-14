@@ -4,7 +4,7 @@ import Loadbalancer from './componentes/Loadbalancer';
 
 function App() {
   return (
-    <Loadbalancer/>
+    <Loadbalancer/>    
   );
 }
 
