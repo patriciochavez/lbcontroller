@@ -2,29 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Servidores from './Servers';
 import Droppable from './Droppable';
-import Draggable from './Draggable';
 import Haproxy from './Haproxy';
-import Items from './Items';
-
-const Wrapper = styled.div`
-width: 100%;
-padding: 32px;
-display: flex;
-justify-content: center;
-`;
-
-const Item = styled.div`
-padding: 8px;
-color: #555;
-background-color: white;
-border-radius: 3px;
-`;
 
 const droppableStyle = {
     backgroundColor: '#555',
     width: '600px',
     height: '800px',
-    margin: '1px'
+    margin: '1px',
+    color: 'white'
 };
 
 const AppWrapper = styled.div`
@@ -33,41 +18,23 @@ display: flex;
 justify-content: center;
 `;
 
-export default class Tablero extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            checked: false
-        }
-    }
-
+export default class Tablero extends Component {    
+    
     render() {
         return (
             <div>
-                 <Haproxy data={this.props.data} />
+                <Haproxy data={this.props.data}/>
+                <button className="float-right bg-success" name="commit" onClick={this.props.commit}>Commit</button>
                 <AppWrapper>                    
-                    {/* <Items /> */}
-                   
-                    <Droppable id="dr1" style={droppableStyle}>                 
+                    <Droppable id="asignadas" style={droppableStyle}>                 
                     Asignadas
-                    {/* <Draggable id="item1" style={{margin: '8px'}}><Item>Texto1</Item></Draggable>                   
-                    <Draggable id="item2" style={{margin: '8px'}}><Item>Texto2</Item></Draggable> */}
                     <Servidores data={this.props.data} />
                 </Droppable>
-                <Droppable id="dr2" style={droppableStyle}>
+                <Droppable id="disponibles" style={droppableStyle}>
                 Disponibles
 
                 </Droppable>
-                </AppWrapper>
-
-                {/* <Droppable id="ha-proxy">
-                    <Haproxy data={this.props.data} />
-                </Droppable>
-
-                <Droppable id="vm-sin-asignar">
-                    <Servidores data={this.props.data} />
-                </Droppable> */}
+                </AppWrapper>               
             </div>
         )
     }

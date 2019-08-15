@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Haproxy from './Haproxy';
-// import Servidores from './Servers';
 import Tablero from './Tablero';
 
 export default class Loadbalancer extends Component {
@@ -11,7 +9,8 @@ export default class Loadbalancer extends Component {
 
         this.state = {
             authorization: 'Basic YWRtaW46bXlwYXNzd29yZA==',
-            data: ''
+            data: '',
+            disponibles: 'ninguno'
         };
     }
 
@@ -31,12 +30,17 @@ export default class Loadbalancer extends Component {
         }
     }
 
+    commit = (e) => {       
+        e.preventDefault();
+        console.log('e.target.name', e.target.name)
+        // console.log('servidores configurados', this.data.data.data[0].farms[0].servers)        
+        // console.log('servidores disponibles', this.state.disponibles)
+    }
+
     render() {
         return (
-            <div>
-                {/* <Haproxy data={this.state.data} />
-                <Servidores data={this.state.data} />  */}
-                <Tablero data={this.state.data} /> 
+            <div>                
+                <Tablero data={this.state.data} commit={this.commit}/> 
             </div>
         )
     }

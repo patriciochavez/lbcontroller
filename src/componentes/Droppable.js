@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Droppable extends Component {
+export default class Droppable extends Component {  
 
     drop = (e) => {
         e.preventDefault();
         const data = e.dataTransfer.getData('transfer');
-        e.target.appendChild(document.getElementById(data));
+        e.target.appendChild(document.getElementById(data));        
+        console.log('drop() e.target.id', e.target.id)
     }
 
     allowDrop = (e) => {

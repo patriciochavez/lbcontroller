@@ -14,7 +14,7 @@ export default class Draggable extends Component {
     render() {
         return (
             <div id={this.props.id} draggable="true" onDragStart={this.drag} onDragOver={this.noAllowDrop} style={this.props.style}>
-                {this.props.children}
+                {this.props.children}                
             </div>
         )
     }
