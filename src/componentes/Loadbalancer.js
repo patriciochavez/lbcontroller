@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import Haproxy from './Haproxy';
+// import Servidores from './Servers';
 import Tablero from './Tablero';
 
 export default class Loadbalancer extends Component {
@@ -23,7 +25,7 @@ export default class Loadbalancer extends Component {
             this.setState({
                 data: data
             });
-            
+
         } catch (error) {
             console.error(error)
         }
@@ -31,9 +33,11 @@ export default class Loadbalancer extends Component {
 
     render() {
         return (
-            <div>                
-                <Tablero data={this.state.data}/>
+            <div>
+                {/* <Haproxy data={this.state.data} />
+                <Servidores data={this.state.data} />  */}
+                <Tablero data={this.state.data} /> 
             </div>
-            )
-            }
+        )
+    }
 }

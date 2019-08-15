@@ -1,32 +1,31 @@
 import React from 'react';
+import Draggable from './Draggable';
 
-const Servidor = (props) => {    
+const Servidor = (props) => {
     return (
-            <div className="card text-center">
+        <Draggable id={props.servidor.name} style={{ margin: '8px' }}>
+            <div className="card text-center" id={props.servidor.name}>
                 <div className="card-body">
                     <h5 className="card-title">nombre: {props.servidor.name}</h5>
                     <p className="card-text">ip: {props.servidor.address}</p>
                     <p className="card-text">puerto: {props.servidor.port}</p>
                     <p className="card-text">estado: {props.servidor.check}</p>
-                    {<a href="#" className="btn btn-danger">Suspender</a>}
+                    {/* {<a href="#" className="btn btn-danger">Suspender</a>} */}
                 </div>
-            </div>        
+            </div>
+        </Draggable>
     );
 }
 
 const Servidores = (props) => {
     return (
-        <div className="card-group">
-            <div className="card bg-success bg-primary col-3">
-                <div className="card-body">
-                    {
-                        (props.data.data) && props.data.data.data[0].farms[0].servers.map((servidor) => (
-                            <Servidor servidor={servidor}/>
-                        ))                    
+        <div>
+                   {(props.data.data) && props.data.data.data[0].farms[0].servers.map((servidor) => (
+                        <Servidor servidor={servidor} />
+                    ))
                     }
-                </div>
-            </div>
-        </div >);
+   </div>
+    );
 }
 
 export default Servidores;

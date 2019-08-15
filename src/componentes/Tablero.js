@@ -1,93 +1,74 @@
 import React, { Component } from 'react';
-import '../App.css';
+import styled from 'styled-components';
+import Servidores from './Servers';
+import Droppable from './Droppable';
+import Draggable from './Draggable';
 import Haproxy from './Haproxy';
+import Items from './Items';
 
-// const Servidor = (props) => {    
-//     return (
-//             <div className="card text-center">
-//                 <div className="card-body">
-//                     <h5 className="card-title">nombre: {props.servidor.name}</h5>
-//                     <p className="card-text">ip: {props.servidor.address}</p>
-//                     <p className="card-text">puerto: {props.servidor.port}</p>
-//                     <p className="card-text">estado: {props.servidor.check}</p>
-//                     {<a href="#" className="btn btn-danger">Suspender</a>}
-//                 </div>
-//             </div>        
-//     );
-// }
+const Wrapper = styled.div`
+width: 100%;
+padding: 32px;
+display: flex;
+justify-content: center;
+`;
 
-export default class DragDrop extends Component {
-    constructor(props){
+const Item = styled.div`
+padding: 8px;
+color: #555;
+background-color: white;
+border-radius: 3px;
+`;
+
+const droppableStyle = {
+    backgroundColor: '#555',
+    width: '600px',
+    height: '800px',
+    margin: '1px'
+};
+
+const AppWrapper = styled.div`
+margin-top: 20px;
+display: flex;
+justify-content: center;
+`;
+
+export default class Tablero extends Component {
+    constructor(props) {
         super(props);
 
-    this.state = {
-        tasks: [
-            {name:"Servidor1", category:"wip", bgcolor: "blue"},
-            {name:"Servidor2", category:"wip", bgcolor:"blue"}            
-          ]
-    };   
-}
-
-    onDragStart = (ev, id) => {
-        console.log('dragstart:',id);
-        ev.dataTransfer.setData("id", id);
-    }
-
-    onDragOver = (ev) => {
-        ev.preventDefault();
-    }
-
-    onDrop = (ev, cat) => {
-       let id = ev.dataTransfer.getData("id");
-       
-       let tasks = this.state.tasks.filter((task) => {
-           if (task.name === id) {
-               task.category = cat;
-           }
-           return task;
-       });
-
-       this.setState({
-           ...this.state,
-           tasks
-       });
+        this.state = {
+            checked: false
+        }
     }
 
     render() {
-        var tasks = {
-            wip: [],
-            complete: []
-        }
-
-        this.state.tasks.forEach ((t) => {
-            tasks[t.category].push(
-                <div key={t.name} 
-                    onDragStart = {(e) => this.onDragStart(e, t.name)}
-                    draggable
-                    className="draggable"
-                    style = {{backgroundColor: t.bgcolor}}
-                >
-                    {t.name}
-                </div>
-            );
-        });
-
         return (
-            <div className="container-drag">
-                <h2 className="header">Controlador de HAProxy</h2>
-                <div className="wip"
-                    onDragOver={(e)=>this.onDragOver(e)}
-                    onDrop={(e)=>{this.onDrop(e, "wip")}}>
-                    <span className="task-header"><Haproxy data={this.props.data}/></span>
-                    {tasks.wip}
-                </div>
-                <div className="droppable" 
-                    onDragOver={(e)=>this.onDragOver(e)}
-                    onDrop={(e)=>this.onDrop(e, "complete")}>
-                     <span className="task-header">Disponibles</span>
-                     {tasks.complete}                     
-                </div>
+            <div>
+                 <Haproxy data={this.props.data} />
+                <AppWrapper>                    
+                    {/* <Items /> */}
+                   
+                    <Droppable id="dr1" style={droppableStyle}>                 
+                    Asignadas
+                    {/* <Draggable id="item1" style={{margin: '8px'}}><Item>Texto1</Item></Draggable>                   
+                    <Draggable id="item2" style={{margin: '8px'}}><Item>Texto2</Item></Draggable> */}
+                    <Servidores data={this.props.data} />
+                </Droppable>
+                <Droppable id="dr2" style={droppableStyle}>
+                Disponibles
+
+                </Droppable>
+                </AppWrapper>
+
+                {/* <Droppable id="ha-proxy">
+                    <Haproxy data={this.props.data} />
+                </Droppable>
+
+                <Droppable id="vm-sin-asignar">
+                    <Servidores data={this.props.data} />
+                </Droppable> */}
             </div>
-        );
+        )
     }
 }
