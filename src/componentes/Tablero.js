@@ -19,22 +19,21 @@ justify-content: center;
 `;
 
 export default class Tablero extends Component {    
-    
+
     render() {
         return (
             <div>
-                <Haproxy data={this.props.data}/>
-                <button className="float-right bg-success" name="commit" onClick={this.props.commit}>Commit</button>
-                <AppWrapper>                    
-                    <Droppable id="asignadas" style={droppableStyle}>                 
-                    Asignadas
+                <Haproxy data={this.props.data} />
+                <button className="float-right bg-success" name="commit" onClick={this.props.onCommit}>Commit</button>
+                <AppWrapper>
+                    <Droppable onDrop={this.props.onDrop} id="asignadas" style={droppableStyle}>
+                        Asignadas
                     <Servidores data={this.props.data} />
+                    </Droppable>
+                    <Droppable onDrop={this.props.onDrop} id="disponibles" style={droppableStyle}>
+                        Disponibles    
                 </Droppable>
-                <Droppable id="disponibles" style={droppableStyle}>
-                Disponibles
-
-                </Droppable>
-                </AppWrapper>               
+                </AppWrapper>
             </div>
         )
     }

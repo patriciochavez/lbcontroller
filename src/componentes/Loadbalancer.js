@@ -10,8 +10,10 @@ export default class Loadbalancer extends Component {
         this.state = {
             authorization: 'Basic YWRtaW46bXlwYXNzd29yZA==',
             data: '',
-            disponibles: 'ninguno'
+            disponibles: []
         };
+        this.onDrop = this.onDrop.bind(this);
+        this.onCommit = this.onCommit.bind(this);
     }
 
     async componentDidMount() {
@@ -30,17 +32,23 @@ export default class Loadbalancer extends Component {
         }
     }
 
-    commit = (e) => {       
+    onDrop = (e) => {
         e.preventDefault();
-        console.log('e.target.name', e.target.name)
-        // console.log('servidores configurados', this.data.data.data[0].farms[0].servers)        
-        // console.log('servidores disponibles', this.state.disponibles)
+        const data = e.dataTransfer.getData('transfer');
+        e.target.appendChild(document.getElementById(data));        
+        console.log('<Loadbalancer> dropped on', e.target.id)
+        //console.log('drop() data', data)    
+    }
+
+    onCommit = (e) => {       
+        e.preventDefault();
+        console.log('<Loadbalancer> e.target.name', e.target.name)        
     }
 
     render() {
         return (
             <div>                
-                <Tablero data={this.state.data} commit={this.commit}/> 
+                <Tablero data={this.state.data} disponibles={this.state.disponibles} onDrop={this.onDrop} onCommit={this.onCommit}/> 
             </div>
         )
     }
