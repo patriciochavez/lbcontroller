@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Servidores from './Servers';
 import Droppable from './Droppable';
 import Haproxy from './Haproxy';
+import ContextoLoadbalancer from './ContextoLoadbalancer';
 
 const droppableStyle = {
     backgroundColor: '#555',
@@ -18,13 +19,25 @@ display: flex;
 justify-content: center;
 `;
 
-export default class Tablero extends Component {    
+const Tablero = () => {        
+    const onDrop = (e) => {
+        e.preventDefault();
+        const data = e.dataTransfer.getData('transfer');
+        e.target.appendChild(document.getElementById(data));        
+        console.log('<Loadbalancer> dropped on', e.target.id)
+        //console.log('drop() data', data)    
+    }
 
-    render() {
+    const onCommit = (e) => {       
+        e.preventDefault();
+        console.log('<Loadbalancer> e.target.name', e.target.name)        
+    }
+
+
         return (
             <div>
-                <Haproxy data={this.props.data} />
-                <button className="float-right bg-success" name="commit" onClick={this.props.onCommit}>Commit</button>
+                <Haproxy/>
+                {/* <button className="float-right bg-success" name="commit" onClick={this.props.onCommit}>Commit</button>
                 <AppWrapper>
                     <Droppable onDrop={this.props.onDrop} id="asignadas" style={droppableStyle}>
                         Asignadas
@@ -33,8 +46,9 @@ export default class Tablero extends Component {
                     <Droppable onDrop={this.props.onDrop} id="disponibles" style={droppableStyle}>
                         Disponibles    
                 </Droppable>
-                </AppWrapper>
+                </AppWrapper> */}
             </div>
-        )
-    }
+        );
 }
+
+export default Tablero;

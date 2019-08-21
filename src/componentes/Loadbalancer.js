@@ -1,55 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import ContextoLoadbalancer from './ContextoLoadbalancer';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tablero from './Tablero';
 
-export default class Loadbalancer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            authorization: 'Basic YWRtaW46bXlwYXNzd29yZA==',
-            data: '',
-            disponibles: []
-        };
-        this.onDrop = this.onDrop.bind(this);
-        this.onCommit = this.onCommit.bind(this);
-    }
-
-    async componentDidMount() {
+const Loadbalancer = () => {
+    const authorization = 'Basic YWRtaW46bXlwYXNzd29yZA==';
+    const [data, setData] = useState(null);
+    const [disponibles, setDisponibles] = useState(null);
+    
+    useEffect(async () => {
+        async function datos (){
         try {
             let config = {
-                headers: { 'Content-Type': 'application/json', 'Authorization': this.state.authorization },
+                headers: { 'Content-Type': 'application/json', 'Authorization': authorization },
             };
             const data = await axios.get('http://200.32.43.83:8080/v1/services/haproxy/sites', config);
 
-            this.setState({
-                data: data
-            });
-
+            setData({
+                data
+            });     
+           
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
+    
+    
+    }, []);
 
-    onDrop = (e) => {
-        e.preventDefault();
-        const data = e.dataTransfer.getData('transfer');
-        e.target.appendChild(document.getElementById(data));        
-        console.log('<Loadbalancer> dropped on', e.target.id)
-        //console.log('drop() data', data)    
-    }
+    return (
+        <ContextoLoadbalancer.Provider value={{ data, setData, disponibles, setDisponibles }}>
+            <Tablero />
+        </ContextoLoadbalancer.Provider>
 
-    onCommit = (e) => {       
-        e.preventDefault();
-        console.log('<Loadbalancer> e.target.name', e.target.name)        
-    }
-
-    render() {
-        return (
-            <div>                
-                <Tablero data={this.state.data} disponibles={this.state.disponibles} onDrop={this.onDrop} onCommit={this.onCommit}/> 
-            </div>
-        )
-    }
+    )
 }
+
+export default Loadbalancer;
