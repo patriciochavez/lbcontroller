@@ -24,8 +24,7 @@ const Tablero = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData('transfer');
         e.target.appendChild(document.getElementById(data));        
-        console.log('<Loadbalancer> dropped on', e.target.id)
-        //console.log('drop() data', data)    
+        console.log('<Loadbalancer> dropped on', e.target.id)   
     }
 
     const onCommit = (e) => {       
@@ -37,16 +36,16 @@ const Tablero = () => {
         return (
             <div>
                 <Haproxy/>
-                {/* <button className="float-right bg-success" name="commit" onClick={this.props.onCommit}>Commit</button>
+                <button className="float-right bg-success" name="commit" onClick={onCommit}>Commit</button>
                 <AppWrapper>
-                    <Droppable onDrop={this.props.onDrop} id="asignadas" style={droppableStyle}>
+                    <Droppable onDrop={onDrop} id="asignadas" style={droppableStyle}>
                         Asignadas
-                    <Servidores data={this.props.data} />
+                    <Servidores/>
                     </Droppable>
-                    <Droppable onDrop={this.props.onDrop} id="disponibles" style={droppableStyle}>
+                    <Droppable onDrop={onDrop} id="disponibles" style={droppableStyle}>
                         Disponibles    
                 </Droppable>
-                </AppWrapper> */}
+                </AppWrapper>
             </div>
         );
 }
