@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import ContextoLoadbalancer from './ContextoLoadbalancer';
 
-export default class Draggable extends Component {
+const Draggable = ({ id, children }) => {
+    const { setArrastrando } = useContext(ContextoLoadbalancer);
 
-    drag = (e) => {
-        e.dataTransfer.setData('transfer', e.target.id);
-        console.log('<Draggable> dragged', e.target.id)
+    const arrastrar = (e) => {
+        // e.dataTransfer.setData('transfer', e.target.id);
+        // console.log(e.target.id);
+        setArrastrando(e.target.id);
+        // console.log(document.getElementById(e.target.id).parentNode.id)
     }
 
-    noAllowDrop = (e) => {
+    const noSoltar = (e) => {
         e.stopPropagation();
     }
-
-    render() {
-        return (
-            <div id={this.props.id} draggable="true" onDragStart={this.drag} onDragOver={this.noAllowDrop} style={this.props.style}>
-                {this.props.children}                
-            </div>
-        )
-    }
+        
+    return (
+        <div id={id} draggable="true" onDragStart={arrastrar} onDragOver={noSoltar} style={{ margin: '8px' }} key={id}>
+            {children}
+        </div>
+    )
 }
 
 Draggable.propTypes = {
@@ -26,3 +28,5 @@ Draggable.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
 }
+
+export default Draggable;

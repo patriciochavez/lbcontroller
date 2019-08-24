@@ -8,8 +8,12 @@ const Loadbalancer = () => {
     const authorization = 'Basic YWRtaW46bXlwYXNzd29yZA==';
     const [data, setData] = useState(null);
     const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
+    const [asignadas, setAsignadas] = useState(null);
     const [disponibles, setDisponibles] = useState(null);
+    const [arrastrando, setArrastrando] = useState(null);
+    const [asignadas4commit, setAsignadas4commit] = useState(null);
+    const [disponibles4commit, setDisponibles4commit] = useState(null);
     
     useEffect(() => {
         async function traerDatos() {            
@@ -22,6 +26,20 @@ const Loadbalancer = () => {
                 setData(data);
                 setCargando(false);
 
+                const servers = [
+                    {
+                        name: 'noasignado01',
+                        address: '200.32.43.83.1',
+                        port: '01',
+                        check: 'disabled'
+                    }
+                ];
+
+                data && setAsignadas(data.data.data[0].farms[0].servers);
+                servers && setDisponibles(servers);
+                data && setAsignadas4commit(data.data.data[0].farms[0].servers);
+                servers && setDisponibles4commit(servers);
+
             } catch (error) {
                 console.error(error);
             }
@@ -31,7 +49,7 @@ const Loadbalancer = () => {
     }, []);
 
     return (
-        <ContextoLoadbalancer.Provider value={{ data, setData, disponibles, setDisponibles }}>
+        <ContextoLoadbalancer.Provider value={{ data, setData, asignadas, setAsignadas, disponibles, setDisponibles, arrastrando, setArrastrando, disponibles4commit, setDisponibles4commit, asignadas4commit, setAsignadas4commit }}>
             {!cargando && <Tablero />}           
         </ContextoLoadbalancer.Provider>
 

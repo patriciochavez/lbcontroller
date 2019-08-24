@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import Draggable from './Draggable';
+import Arrastrable from './Draggable';
 import ContextoLoadbalancer from './ContextoLoadbalancer';
 
-const Servidores = () => {
-    const { data } = useContext(ContextoLoadbalancer);
+const ServidoresAsignados = () => {
+    const { asignadas} = useContext(ContextoLoadbalancer);        
     return (
-        <div>
-            {data && data.data.data[0].farms[0].servers.map((servidor) => (
-                <Draggable id={servidor.name} style={{ margin: '8px' }}>
+        <>
+            {asignadas && asignadas.map((servidor) => (
+                <Arrastrable id={servidor.name} style={{ margin: '8px' }} key={servidor.name}>                    
                     <div className="card text-center bg-dark" id={servidor.name}>
                         <div className="card-body">
                             <h5 className="card-title">nombre: {servidor.name}</h5>
@@ -15,13 +15,13 @@ const Servidores = () => {
                             <p className="card-text">puerto: {servidor.port}</p>
                             {(servidor.check === 'enabled') ? <p className="badge badge-success">check</p> : <p className="badge badge-danger">no-check</p>}
                         </div>
-                    </div>
-                </Draggable>
+                    </div>                   
+                </Arrastrable>
             ))
             }
-        </div>
+        </>
     );
 }
 
-export default Servidores;
+export default ServidoresAsignados;
 
